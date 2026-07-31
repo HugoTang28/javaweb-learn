@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: departmentMan
+  datasource:
+    # 配置数据库连接
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jdbc
+    username: root
+    password: root
+
+mybatis:
+  # 配置 mybatis 的输出日志
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 指定 xml 映射文件的位置
+#  mapper-locations: classpath:mapper/*.xml
+    #开启驼峰映射
+    map-underscore-to-camel-case: true
