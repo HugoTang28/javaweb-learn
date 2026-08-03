@@ -1,14 +1,27 @@
 package com.example.service;
 
 import com.example.pojo.Emp;
+import com.example.pojo.EmpQueryParam;
 import com.example.pojo.PageResult;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 public interface EmpService {
   /**
    * 分页查询
-   * @param page 当前页
-   * @param pagesize 每页记录数
-   * @return
    */
-  PageResult<Emp> findByPage(Integer page, Integer pagesize);
+  // PageResult<Emp> findByPage(Integer page, Integer pagesize,
+  //                            String namme, Integer gender,
+  //                           LocalDate begin, LocalDate end);
+
+  /**
+   * 分页查询
+   */
+  PageResult<Emp> findByPage(EmpQueryParam empQueryParam);
+
+  /**
+   * 新增员工
+   */
+  void save(Emp emp);
 }
