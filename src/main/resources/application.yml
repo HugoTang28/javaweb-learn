@@ -7,6 +7,13 @@ spring:
     url: jdbc:mysql://localhost:3306/jdbc
     username: root
     password: root
+  #文件上传
+  servlet:
+    multipart:
+#      最大单个文件大小
+      max-file-size: 10MB
+      # 最大请求大小（包括所有表单信息）
+      max-request-size: 10MB
 
 mybatis:
   # 配置 mybatis 的输出日志
@@ -16,3 +23,9 @@ mybatis:
 #  mapper-locations: classpath:mapper/*.xml
     #开启驼峰映射
     map-underscore-to-camel-case: true
+  #配置事务管理日志级别
+logging:
+    level:
+      org.springframework.jdbc.support.JdbcTransactionManager: debug
+
+
