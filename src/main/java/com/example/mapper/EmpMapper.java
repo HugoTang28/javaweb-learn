@@ -3,6 +3,7 @@ import com.example.pojo.Emp;
 import com.example.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Options;
 
 import java.util.List;
@@ -47,4 +48,10 @@ public interface EmpMapper {
       "#{phone}, #{job}, #{salary}, #{image}," +
       " #{entryDate}, #{deptId}, #{createTime}, #{updateTime})")
   void insert(Emp emp);
+
+  /**
+   * 根据id删除员工的基本信息
+   * @param ids
+   */
+  void deleteByIds(@Param("ids") List<Integer> ids);
 }

@@ -81,7 +81,7 @@ public class EmpServiceImpl implements EmpService {
       emp.setUpdateTime(LocalDateTime.now());
       empMapper.insert(emp);
 
-      int i = 1/0;
+      // int i = 1/0;
 
       // 保存员工的工作经历
       List<EmpExpr> exprList = emp.getExprList();
@@ -97,5 +97,15 @@ public class EmpServiceImpl implements EmpService {
       EmpLog empLog = new EmpLog(null,LocalDateTime.now(),"新增员工:" + emp);
       empLogService.insertLog(empLog);
     }
+  }
+
+  // 批量删除员工
+  @Transactional(rollbackFor = Exception.class)
+  @Override
+  public void delete(List<Integer> ids) {
+    // 批量删除员工的基本信息
+    empMapper.deleteByIds(ids);
+    // 批量删除员工的工作经历信息
+    empExprMapper.deleteByEmpIds(ids);
   }
 }

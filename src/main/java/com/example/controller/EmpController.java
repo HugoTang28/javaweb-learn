@@ -9,6 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Array;
+import java.util.Arrays;
+import java.util.List;
+
 
 @RestController
 @Slf4j
@@ -32,6 +36,22 @@ public class EmpController {
   public Result save(@RequestBody Emp emp) {
     log.info("新增员工: {}", emp);
     empService.save(emp);
+    return Result.success();
+  }
+
+  // 删除员工
+  // @DeleteMapping // 数组
+  // public Result delete(Integer[] ids) {
+  //   log.info("删除员工: {}", Arrays.toString(ids));
+  //   // empService.delete(ids);
+  //   return Result.success();
+  // }
+
+  // 集合
+  @DeleteMapping
+  public Result delete(@RequestParam List<Integer> ids) {
+    log.info("删除员工: {}", ids);
+    empService.delete(ids);
     return Result.success();
   }
 }
