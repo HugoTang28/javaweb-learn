@@ -19,7 +19,48 @@
             ORDER BY e.update_time DESC
     </select>
 
-<!--批量删除员工的基本信息-->
+
+<!--    定义resultMap-->
+    <resultMap id="empResultMap" type="com.example.pojo.Emp">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+        <result column="gender" property="gender"></result>
+        <result column="job" property="job"></result>
+        <result column="entry_date" property="entryDate"></result>
+        <result column="salary" property="salary"></result>
+        <result column="dept_id" property="deptId"></result>
+        <result column="image" property="image"></result>
+        <result column="phone" property="phone"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_time" property="updateTime"></result>
+<!-- 封装工作经历信息-->
+        <collection property="exprList" ofType="com.example.pojo.EmpExpr">
+            <id column="ee_id" property="id"></id>
+            <result column="ee_empid" property="empId"></result>
+            <result column="ee_job" property="job"></result>
+            <result column="ee_company" property="company"></result>
+            <result column="ee_begin" property="begin"></result>
+            <result column="ee_end" property="end"></result>
+        </collection>
+    </resultMap>
+
+<!-- 根据员工查询的基本信息和工作信息-->
+    <select id="getInfo" resultMap="empResultMap">
+        SELECT
+            e.*,
+            ee.id ee_id,
+            ee.emp_id ee_empid,
+            ee.begin ee_begin,
+            ee.end ee_end,
+            ee.job ee_job,
+            ee.company ee_company
+        from emp e left join emp_expr ee on e.id = ee.emp_id
+        where e.id = #{id}
+    </select>
+
+    <!--批量删除员工的基本信息-->
     <delete id="deleteByIds">
         DELETE FROM emp WHERE id IN
             <foreach collection="ids" item="id" open="(" separator="," close=")">

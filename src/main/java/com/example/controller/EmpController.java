@@ -9,8 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Array;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -39,19 +37,27 @@ public class EmpController {
     return Result.success();
   }
 
-  // 删除员工
-  // @DeleteMapping // 数组
+  // 删除员工-数组方法
+  // @DeleteMapping
   // public Result delete(Integer[] ids) {
   //   log.info("删除员工: {}", Arrays.toString(ids));
   //   // empService.delete(ids);
   //   return Result.success();
   // }
 
-  // 集合
+  // 删除员工-集合方法
   @DeleteMapping
   public Result delete(@RequestParam List<Integer> ids) {
     log.info("删除员工: {}", ids);
     empService.delete(ids);
     return Result.success();
+  }
+
+  // @根据id查询员工信息
+  @GetMapping("/{id}")
+  public Result get(@PathVariable Integer id) {
+    log.info("查询员工信息: {}", id);
+    Emp emp = empService.getInfo(id);
+    return Result.success(emp);
   }
 }

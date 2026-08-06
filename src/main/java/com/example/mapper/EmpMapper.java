@@ -1,10 +1,7 @@
 package com.example.mapper;
 import com.example.pojo.Emp;
 import com.example.pojo.EmpQueryParam;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -54,4 +51,11 @@ public interface EmpMapper {
    * @param ids
    */
   void deleteByIds(@Param("ids") List<Integer> ids);
+
+  /**
+   * 根据id查询员工信息
+   * @param id
+   * @return
+   */
+  Emp getInfo(Integer id);
 }
