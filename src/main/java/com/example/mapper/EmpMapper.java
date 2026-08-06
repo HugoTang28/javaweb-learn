@@ -58,4 +58,8 @@ public interface EmpMapper {
    * @return
    */
   Emp getInfo(Integer id);
+
+
+  // 修改员工信息
+  void updateById(Emp emp);
 }

@@ -27,4 +27,10 @@ public interface EmpService {
   void delete(List<Integer> ids);
 
   Emp getInfo(Integer id);
+
+  /**
+   * 修改员工信息
+   * @param emp
+   */
+  void update(Emp emp);
 }

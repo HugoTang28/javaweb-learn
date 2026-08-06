@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -109,8 +110,31 @@ public class EmpServiceImpl implements EmpService {
     empExprMapper.deleteByEmpIds(ids);
   }
 
+  // 查询员工信息
   @Override
   public Emp getInfo(Integer id) {
     return empMapper.getInfo(id);
+  }
+
+  // 编辑员工信息
+  @Transactional(rollbackFor = Exception.class)
+  @Override
+  public void update(Emp emp) {
+    // 1、根据员工id修改员工基本信息
+    emp.setUpdateTime(LocalDateTime.now());
+    empMapper.updateById(emp);
+
+
+    // 2、根据员工id修改员工 的工作尽量信息
+    // 2.1 先删除员工的工作经历信息
+    empExprMapper.deleteByEmpIds(Arrays.asList(emp.getId()));
+    // 2.2 再添加的工作经历信息
+    List<EmpExpr> exprList = emp.getExprList();
+    if(!CollectionUtils.isEmpty(exprList)) { // 如果工作经历不为空
+      exprList.forEach(expr -> {
+        expr.setEmpId(emp.getId()); // 设置员工id
+      });
+      empExprMapper.insertBatch(exprList); // 批量保存员工的工作经历信息
+    }
   }
 }
