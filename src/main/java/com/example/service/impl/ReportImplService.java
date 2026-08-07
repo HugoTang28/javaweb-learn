@@ -23,4 +23,10 @@ public class ReportImplService implements ReportService {
     List<Object> dataList = list.stream().map(map -> map.get("count")).toList();
     return new JobOption(jobList, dataList);
   }
+
+  // 统计员工性别数据
+  @Override
+  public List<Map<String, Object>> getEmpGenderData() {
+    return empMapper.countEmpGenderData();
+  }
 }

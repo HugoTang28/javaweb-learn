@@ -118,6 +118,14 @@
         from emp group by job order by count;
     </select>
 
+<!--    统计员工性别信息-->
+    <select id="countEmpGenderData" resultType="java.util.Map">
+        select
+            if(gender=1,'男性','女性') as name,
+            count(*) as count
+        from emp group by gender;
+    </select>
+
     <!--批量删除员工的基本信息-->
     <delete id="deleteByIds">
         DELETE FROM emp WHERE id IN

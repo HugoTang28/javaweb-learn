@@ -66,4 +66,7 @@ public interface EmpMapper {
 
   // 统计员工职位信息
   List<Map<String, Object>> countEmpJobData();
+
+  // 统计员工性别信息
+  List<Map<String, Object>> countEmpGenderData();
 }
