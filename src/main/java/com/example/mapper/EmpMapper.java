@@ -4,6 +4,7 @@ import com.example.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -62,4 +63,7 @@ public interface EmpMapper {
 
   // 修改员工信息
   void updateById(Emp emp);
+
+  // 统计员工职位信息
+  List<Map<String, Object>> countEmpJobData();
 }
