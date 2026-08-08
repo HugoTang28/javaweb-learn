@@ -126,6 +126,13 @@
         from emp group by gender;
     </select>
 
+<!--    根据用户名和密码查询员工信息-->
+    <select id="selectByUsernameAndPassword" resultType="com.example.pojo.Emp">
+        SELECT id,username,password,name
+            FROM emp
+        WHERE username = #{username} AND password = #{password}
+    </select>
+
     <!--批量删除员工的基本信息-->
     <delete id="deleteByIds">
         DELETE FROM emp WHERE id IN

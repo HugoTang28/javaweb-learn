@@ -1,6 +1,7 @@
 package com.example.mapper;
 import com.example.pojo.Emp;
 import com.example.pojo.EmpQueryParam;
+import com.example.pojo.LoginInfo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -69,4 +70,7 @@ public interface EmpMapper {
 
   // 统计员工性别信息
   List<Map<String, Object>> countEmpGenderData();
+
+  // 根据用户名和密码查询用户信息
+  Emp selectByUsernameAndPassword(Emp emp);
 }

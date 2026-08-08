@@ -7,6 +7,7 @@ import com.example.service.EmpLogService;
 import com.example.service.EmpService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@Slf4j
 public class EmpServiceImpl implements EmpService {
   @Autowired
   private EmpMapper empMapper;
@@ -136,5 +138,21 @@ public class EmpServiceImpl implements EmpService {
       });
       empExprMapper.insertBatch(exprList); // 批量保存员工的工作经历信息
     }
+  }
+
+  // 登录
+  @Override
+  public LoginInfo login(Emp emp) {
+    // 1.调用mapper接口，根据用户名和密码查询员工信息
+    Emp e = empMapper.selectByUsernameAndPassword(emp);
+
+    // 2、判断是否存在这个员工，如果存在，组装登录成功
+    if(e != null) {
+      log.info("登录成功,员工信息：{}",e);
+      return new LoginInfo(e.getId(),e.getUsername(),e.getPassword(),e.getName(),"");
+    }
+
+    // 3、如果不存在，返回登录失败
+    return null;
   }
 }
